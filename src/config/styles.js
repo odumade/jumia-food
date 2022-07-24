@@ -6,7 +6,7 @@ export default {
   colors,
   text: {
     color: colors.dark,
-    fontSize: 18,
+    fontSize: 11,
     fontFamily: Platform.OS === "android" ? "Poppins-Black" : "Poppins-Black",
   },
 };

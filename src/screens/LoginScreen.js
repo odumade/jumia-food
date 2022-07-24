@@ -11,7 +11,8 @@ import {
     KeyboardAvoidingView
 } from 'react-native';
 import { Formik } from 'formik';
-import { Separator, ToggleButton, AppTextInput, AppButton } from '../components';
+import * as Yup from 'yup';
+import { Separator, ToggleButton, AppTextInput, AppButton, AppText } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -19,11 +20,17 @@ import { Colors, Fonts, Images } from '../constants';
 import { Display } from '../utils';
 import LottieView from 'lottie-react-native';
 
+const validationSchema = Yup.object().shape({
+    email: Yup.string().required().email().label("Email"),
+    password: Yup.string().required().min(4).label("Password"),
+});
+
+
 const LoginScreen = ({ navigation }) => {
 
     const [isPasswordShow, setIsPasswordShow] = useState(false);
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    // const [email, setEmail] = useState();
+    // const [password, setPassword] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -59,8 +66,9 @@ const LoginScreen = ({ navigation }) => {
                     <Formik
                         initialValues={{ email: '', password: '' }}
                         onSubmit={values => console.log(values)}
+                        validationSchema={validationSchema}
                     >
-                        {({ handleChange, handleSubmit }) => (
+                        {({ handleChange, handleSubmit, errors }) => (
                             <>
                                 <View style={styles.inputContainer}>
                                     <View style={styles.inputSubContainer}>
@@ -78,11 +86,13 @@ const LoginScreen = ({ navigation }) => {
                                             autoCapitalize="none"
                                             autoCorrect={false}
                                             keyboardType="email-address"
-                                            textContentType="emailAddress"
                                             onChangeText={handleChange("email")}
+                                            textContentType="emailAddress"
                                         />
                                     </View>
+
                                 </View>
+                                <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.email}</AppText>
                                 <Separator height={15} />
                                 <View style={styles.inputContainer}>
                                     <View style={styles.inputSubContainer}>
@@ -103,6 +113,7 @@ const LoginScreen = ({ navigation }) => {
                                             textContentType="password"
                                             onChangeText={handleChange("password")}
                                         />
+
                                         <Feather
                                             name={isPasswordShow ? 'eye' : 'eye-off'}
                                             size={22}
@@ -110,9 +121,11 @@ const LoginScreen = ({ navigation }) => {
                                             style={{ marginRight: 10 }}
                                             onPress={() => setIsPasswordShow(!isPasswordShow)}
                                         />
+
                                     </View>
                                 </View>
-                                <Text style={styles.errorMessage}>{errorMessage}</Text>
+                                <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.password}</AppText>
+
                                 <View style={styles.forgotPasswordContainer}>
                                     <View style={styles.toggleContainer}>
                                         <ToggleButton size={0.5} />
