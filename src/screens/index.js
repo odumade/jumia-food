@@ -5,6 +5,8 @@ import SignupScreen from './SignupScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
 import RegisterPhone from './RegisterPhone';
 import TestingPickerScreen from './TestingPickerScreen';
+import LoginScreen from './LoginScreen';
+
 
 
 
@@ -15,5 +17,6 @@ export {
     SignupScreen,
     ForgotPasswordScreen,
     RegisterPhone,
-    TestingPickerScreen
+    TestingPickerScreen,
+    LoginScreen
 };

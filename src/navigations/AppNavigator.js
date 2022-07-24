@@ -9,7 +9,8 @@ import {
     SignupScreen,
     SplashScreen,
     WelcomeScreen,
-    TestingPickerScreen
+    TestingPickerScreen,
+    LoginScreen
 } from '../screens';
 
 const Stack = createStackNavigator();
@@ -21,6 +22,7 @@ const AppNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="TestingPicker" component={TestingPickerScreen} />
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
