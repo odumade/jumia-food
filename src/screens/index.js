@@ -3,6 +3,7 @@ import WelcomeScreen from './WelcomeScreen';
 import SigninScreen from './SigninScreen';
 import SignupScreen from './SignupScreen';
 import ForgotPasswordScreen from './ForgotPasswordScreen';
+import RegisterPhone from './RegisterPhone';
 
 
 
@@ -11,5 +12,6 @@ export {
     WelcomeScreen,
     SigninScreen,
     SignupScreen,
-    ForgotPasswordScreen
+    ForgotPasswordScreen,
+    RegisterPhone
 };
