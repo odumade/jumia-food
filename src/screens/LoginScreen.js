@@ -10,6 +10,7 @@ import {
     ScrollView,
     KeyboardAvoidingView
 } from 'react-native';
+import { Formik } from 'formik';
 import { Separator, ToggleButton, AppTextInput, AppButton } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -55,71 +56,77 @@ const LoginScreen = ({ navigation }) => {
                     <Text style={styles.content}>
                         Enter your email and password, and enjoy ordering food
                     </Text>
-                    <View style={styles.inputContainer}>
-                        <View style={styles.inputSubContainer}>
-                            <MaterialCommunityIcons
-                                name="email"
-                                size={22}
-                                color={Colors.DEFAULT_GREY}
-                                style={{ marginRight: 10 }}
-                            />
-                            <AppTextInput
-                                placeholder="Email"
-                                placeholderTextColor={Colors.DEFAULT_GREY}
-                                selectionColor={Colors.DEFAULT_GREY}
-                                style={styles.inputText}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                keyboardType="email-address"
-                                textContentType="emailAddress"
-                                onChangeText={text => setEmail(text)}
-                            />
-                        </View>
-                    </View>
-                    <Separator height={15} />
-                    <View style={styles.inputContainer}>
-                        <View style={styles.inputSubContainer}>
-                            <Feather
-                                name="lock"
-                                size={22}
-                                color={Colors.DEFAULT_GREY}
-                                style={{ marginRight: 10 }}
-                            />
-                            <TextInput
-                                secureTextEntry={isPasswordShow ? false : true}
-                                placeholder="Password"
-                                placeholderTextColor={Colors.DEFAULT_GREY}
-                                selectionColor={Colors.DEFAULT_GREY}
-                                style={styles.inputText}
-                                autoCapitalize="none"
-                                autoCorrect={false}
-                                textContentType="password"
-                                onChangeText={text => setPassword(text)}
-                            />
-                            <Feather
-                                name={isPasswordShow ? 'eye' : 'eye-off'}
-                                size={22}
-                                color={Colors.DEFAULT_GREY}
-                                style={{ marginRight: 10 }}
-                                onPress={() => setIsPasswordShow(!isPasswordShow)}
-                            />
-                        </View>
-                    </View>
-                    <Text style={styles.errorMessage}>{errorMessage}</Text>
-                    <View style={styles.forgotPasswordContainer}>
-                        <View style={styles.toggleContainer}>
-                            <ToggleButton size={0.5} />
-                            <Text style={styles.rememberMeText}>Remember me</Text>
-                        </View>
-                        <Text
-                            style={styles.forgotPasswordText}
-                            onPress={() => navigation.navigate('ForgotPassword')}>
-                            Forgot Password
-                        </Text>
-                    </View>
-                    <View>
+                    <Formik
+                        initialValues={{ email: '', password: '' }}
+                        onSubmit={values => console.log(values)}
+                    >
+                        {({ handleChange, handleSubmit }) => (
+                            <>
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.inputSubContainer}>
+                                        <MaterialCommunityIcons
+                                            name="email"
+                                            size={22}
+                                            color={Colors.DEFAULT_GREY}
+                                            style={{ marginRight: 10 }}
+                                        />
+                                        <AppTextInput
+                                            placeholder="Email"
+                                            placeholderTextColor={Colors.DEFAULT_GREY}
+                                            selectionColor={Colors.DEFAULT_GREY}
+                                            style={styles.inputText}
+                                            autoCapitalize="none"
+                                            autoCorrect={false}
+                                            keyboardType="email-address"
+                                            textContentType="emailAddress"
+                                            onChangeText={handleChange("email")}
+                                        />
+                                    </View>
+                                </View>
+                                <Separator height={15} />
+                                <View style={styles.inputContainer}>
+                                    <View style={styles.inputSubContainer}>
+                                        <Feather
+                                            name="lock"
+                                            size={22}
+                                            color={Colors.DEFAULT_GREY}
+                                            style={{ marginRight: 10 }}
+                                        />
+                                        <TextInput
+                                            secureTextEntry={isPasswordShow ? false : true}
+                                            placeholder="Password"
+                                            placeholderTextColor={Colors.DEFAULT_GREY}
+                                            selectionColor={Colors.DEFAULT_GREY}
+                                            style={styles.inputText}
+                                            autoCapitalize="none"
+                                            autoCorrect={false}
+                                            textContentType="password"
+                                            onChangeText={handleChange("password")}
+                                        />
+                                        <Feather
+                                            name={isPasswordShow ? 'eye' : 'eye-off'}
+                                            size={22}
+                                            color={Colors.DEFAULT_GREY}
+                                            style={{ marginRight: 10 }}
+                                            onPress={() => setIsPasswordShow(!isPasswordShow)}
+                                        />
+                                    </View>
+                                </View>
+                                <Text style={styles.errorMessage}>{errorMessage}</Text>
+                                <View style={styles.forgotPasswordContainer}>
+                                    <View style={styles.toggleContainer}>
+                                        <ToggleButton size={0.5} />
+                                        <Text style={styles.rememberMeText}>Remember me</Text>
+                                    </View>
+                                    <Text
+                                        style={styles.forgotPasswordText}
+                                        onPress={() => navigation.navigate('ForgotPassword')}>
+                                        Forgot Password
+                                    </Text>
+                                </View>
+                                <View>
 
-                        {/* style={styles.signinButton}
+                                    {/* style={styles.signinButton}
                         // onPress={() => signIn()}
                         activeOpacity={0.8}>
                         {isLoading ? (
@@ -127,12 +134,15 @@ const LoginScreen = ({ navigation }) => {
                         ) : (
                             <Text style={styles.signinButtonText}>Sign In</Text>
                         )} */}
-                        <Separator height={StatusBar.currentHeight} />
-                        <Separator height={Display.setHeight(3)} />
-                        <AppButton title="Login" onPress={() => console.log(email, password)} />
+                                    <Separator height={StatusBar.currentHeight} />
+                                    <Separator height={Display.setHeight(3)} />
+                                    <AppButton title="Login" onPress={handleSubmit} />
 
-                    </View>
+                                </View>
 
+                            </>
+                        )}
+                    </Formik>
 
                     <View style={styles.signupContainer}>
                         <Text style={styles.accountText}>Don't have an account?</Text>
