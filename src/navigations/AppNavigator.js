@@ -8,23 +8,26 @@ import {
     SigninScreen,
     SignupScreen,
     SplashScreen,
-    WelcomeScreen
+    WelcomeScreen,
+    TestingPickerScreen
 } from '../screens';
 
 const Stack = createStackNavigator();
+
+
 
 
 const AppNavigator = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="TestingPicker" component={TestingPickerScreen} />
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Welcome" component={WelcomeScreen} />
                 <Stack.Screen name="Signin" component={SigninScreen} />
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
                 <Stack.Screen name="RegisterPhone" component={RegisterPhone} />
-
             </Stack.Navigator>
         </NavigationContainer >
     )
