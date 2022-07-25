@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Separator, ToggleButton, AppTextInput, AppButton, ErrorMessage } from '../components';
+import { Separator, ToggleButton, AppTextInput, AppButton, ErrorMessage, AppFormField, SubmitButton } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -68,7 +68,7 @@ const LoginScreen = ({ navigation }) => {
                         onSubmit={values => console.log(values)}
                         validationSchema={validationSchema}
                     >
-                        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
+                        {() => (
                             <>
                                 <View style={styles.inputContainer}>
                                     <View style={styles.inputSubContainer}>
@@ -78,23 +78,24 @@ const LoginScreen = ({ navigation }) => {
                                             color={Colors.DEFAULT_GREY}
                                             style={{ marginRight: 10 }}
                                         />
-                                        <AppTextInput
+                                        <AppFormField
                                             placeholder="Email"
+                                            name="email"
                                             placeholderTextColor={Colors.DEFAULT_GREY}
                                             selectionColor={Colors.DEFAULT_GREY}
                                             style={styles.inputText}
-                                            onBlur={() => setFieldTouched("email")}
+                                            // onBlur={() => setFieldTouched("email")}
                                             autoCapitalize="none"
                                             autoCorrect={false}
                                             keyboardType="email-address"
-                                            onChangeText={handleChange("email")}
-                                            textContentType="emailAddress"
+                                        //onChangeText={handleChange("email")}
+                                        // textContentType="emailAddress"
                                         />
                                     </View>
 
                                 </View>
                                 {/* <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.email}</AppText> */}
-                                <ErrorMessage error={errors.email} visible={touched.email} />
+                                {/* <ErrorMessage error={errors.email} visible={touched.email} /> */}
                                 <Separator height={15} />
                                 <View style={styles.inputContainer}>
                                     <View style={styles.inputSubContainer}>
@@ -104,8 +105,9 @@ const LoginScreen = ({ navigation }) => {
                                             color={Colors.DEFAULT_GREY}
                                             style={{ marginRight: 10 }}
                                         />
-                                        <TextInput
+                                        <AppFormField
                                             secureTextEntry={isPasswordShow ? false : true}
+                                            name="password"
                                             placeholder="Password"
                                             placeholderTextColor={Colors.DEFAULT_GREY}
                                             selectionColor={Colors.DEFAULT_GREY}
@@ -113,8 +115,8 @@ const LoginScreen = ({ navigation }) => {
                                             autoCapitalize="none"
                                             autoCorrect={false}
                                             textContentType="password"
-                                            onChangeText={handleChange("password")}
-                                            onBlur={() => setFieldTouched("password")}
+                                        // onChangeText={handleChange("password")}
+                                        // onBlur={() => setFieldTouched("password")}
                                         />
 
                                         <Feather
@@ -128,7 +130,7 @@ const LoginScreen = ({ navigation }) => {
                                     </View>
                                 </View>
                                 {/* <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.password}</AppText> */}
-                                <ErrorMessage error={errors.password} visible={touched.password} />
+                                {/* <ErrorMessage error={errors.password} visible={touched.password} /> */}
                                 <View style={styles.forgotPasswordContainer}>
                                     <View style={styles.toggleContainer}>
                                         <ToggleButton size={0.5} />
@@ -152,7 +154,8 @@ const LoginScreen = ({ navigation }) => {
                         )} */}
                                     <Separator height={StatusBar.currentHeight} />
                                     <Separator height={Display.setHeight(3)} />
-                                    <AppButton title="Login" onPress={handleSubmit} />
+                                    {/* <AppButton title="Login" onPress={handleSubmit} /> */}
+                                    <SubmitButton title="Login" />
 
                                 </View>
 

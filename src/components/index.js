@@ -9,6 +9,8 @@ import Screen from './Screen'
 import PickerItem from './PickerItem';
 import AppButton from './AppButton';
 import ErrorMessage from './ErrorMessage';
+import AppFormField from './AppFormField';
+import SubmitButton from './SubmitButton';
 
 export {
     WelcomeCard,
@@ -20,5 +22,7 @@ export {
     Screen,
     PickerItem,
     AppButton,
-    ErrorMessage
+    ErrorMessage,
+    AppFormField,
+    SubmitButton
 };
