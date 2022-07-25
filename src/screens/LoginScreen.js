@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Separator, ToggleButton, AppTextInput, AppButton, AppText } from '../components';
+import { Separator, ToggleButton, AppTextInput, AppButton, ErrorMessage } from '../components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -68,7 +68,7 @@ const LoginScreen = ({ navigation }) => {
                         onSubmit={values => console.log(values)}
                         validationSchema={validationSchema}
                     >
-                        {({ handleChange, handleSubmit, errors }) => (
+                        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
                             <>
                                 <View style={styles.inputContainer}>
                                     <View style={styles.inputSubContainer}>
@@ -83,6 +83,7 @@ const LoginScreen = ({ navigation }) => {
                                             placeholderTextColor={Colors.DEFAULT_GREY}
                                             selectionColor={Colors.DEFAULT_GREY}
                                             style={styles.inputText}
+                                            onBlur={() => setFieldTouched("email")}
                                             autoCapitalize="none"
                                             autoCorrect={false}
                                             keyboardType="email-address"
@@ -92,7 +93,8 @@ const LoginScreen = ({ navigation }) => {
                                     </View>
 
                                 </View>
-                                <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.email}</AppText>
+                                {/* <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.email}</AppText> */}
+                                <ErrorMessage error={errors.email} visible={touched.email} />
                                 <Separator height={15} />
                                 <View style={styles.inputContainer}>
                                     <View style={styles.inputSubContainer}>
@@ -112,6 +114,7 @@ const LoginScreen = ({ navigation }) => {
                                             autoCorrect={false}
                                             textContentType="password"
                                             onChangeText={handleChange("password")}
+                                            onBlur={() => setFieldTouched("password")}
                                         />
 
                                         <Feather
@@ -124,8 +127,8 @@ const LoginScreen = ({ navigation }) => {
 
                                     </View>
                                 </View>
-                                <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.password}</AppText>
-
+                                {/* <AppText style={{ color: 'red', marginHorizontal: 12, padding: 10 }}>{errors.password}</AppText> */}
+                                <ErrorMessage error={errors.password} visible={touched.password} />
                                 <View style={styles.forgotPasswordContainer}>
                                     <View style={styles.toggleContainer}>
                                         <ToggleButton size={0.5} />
